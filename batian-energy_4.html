@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batian Energy — Powering Kenya's Future</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0B1612;
+    --surface:  #121F1A;
+    --surface2: #1A2E27;
+    --green:    #00E676;
+    --green-dim:#00B35A;
+    --amber:    #F59E0B;
+    --sky:      #38BDF8;
+    --sky-dim:  #0EA5E9;
+    --sky-glow: rgba(56,189,248,0.15);
+    --text:     #E8F0EC;
+    --muted:    #7A9B8A;
+    --border:   rgba(0,230,118,0.15);
+    --border-sky: rgba(56,189,248,0.18);
+    --font-display: 'Rajdhani', sans-serif;
+    --font-body:    'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 68px;
+    background: rgba(11,22,18,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+  .nav-logo span { color: var(--green); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.875rem; font-weight: 500; letter-spacing: 0.03em;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta {
+    background: linear-gradient(90deg, var(--green), var(--sky-dim));
+    color: #0B1612;
+    padding: 0.5rem 1.25rem; border-radius: 4px;
+    font-weight: 600; font-size: 0.875rem;
+    text-decoration: none; letter-spacing: 0.04em;
+    transition: opacity .2s, transform .15s;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 3rem;
+    align-items: center;
+    padding: 100px 5% 60px;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 1;
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 1;
+    padding-top: 20px;
+  }
+
+  /* Energy-grid SVG background */
+  .hero-grid {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  .hero-grid svg { width: 100%; height: 100%; }
+
+  /* Ambient glows */
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,230,118,0.08) 0%, transparent 70%);
+    top: 10%; right: 5%;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(56,189,248,0.07) 0%, transparent 70%);
+    bottom: 15%; right: 25%;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block; width: 32px; height: 2px;
+    background: var(--green);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 700; line-height: 1.05;
+    letter-spacing: -0.01em;
+    max-width: 760px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--green);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 520px; line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+  .btn-primary {
+    background: var(--green); color: #0B1612;
+    padding: 0.85rem 2rem; border-radius: 4px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; letter-spacing: 0.04em;
+    font-family: var(--font-display);
+    transition: background .2s, transform .15s, box-shadow .2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary:hover {
+    background: #33ED91; transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,230,118,0.3);
+  }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    padding: 0.85rem 2rem; border-radius: 4px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; letter-spacing: 0.04em;
+    font-family: var(--font-display);
+    border: 1.5px solid rgba(232,240,236,0.25);
+    transition: border-color .2s, transform .15s, background .2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-outline:hover {
+    border-color: var(--green); color: var(--green);
+    background: rgba(0,230,118,0.05);
+    transform: translateY(-2px);
+  }
+
+  /* ── STAT CARDS ── */
+  .stat-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.11);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 160px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.09);
+    transition: box-shadow .25s, border-color .25s, transform .2s;
+  }
+  .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.13);
+    border-color: rgba(255,255,255,0.18);
+  }
+  .stat-card:nth-child(2) { animation-delay: 0.75s; }
+  .stat-card:nth-child(3) { animation-delay: 1.5s; }
+  .stat-card:nth-child(4) { animation-delay: 2.25s; }
+
+  @keyframes glassShimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    animation: scanLine 3s ease-in-out infinite;
+  }
+  .stat-card:nth-child(1)::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+  .stat-card:nth-child(2)::before { background: linear-gradient(90deg, transparent, var(--sky), transparent); animation-delay: 0.75s; }
+  .stat-card:nth-child(3)::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); animation-delay: 1.5s; }
+  .stat-card:nth-child(4)::before { background: linear-gradient(90deg, transparent, var(--sky), transparent); animation-delay: 2.25s; }
+
+  @keyframes scanLine {
+    0% { transform: translateX(-100%); opacity: 0; }
+    40% { opacity: 1; }
+    100% { transform: translateX(100%); opacity: 0; }
+  }
+
+  .stat-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.4rem; }
+  .stat-label {
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 2.4rem; font-weight: 700;
+    color: var(--text); letter-spacing: -0.02em;
+    line-height: 1; margin-bottom: 0.25rem;
+  }
+  .stat-value .unit {
+    font-size: 1rem; font-weight: 500;
+    margin-left: 2px;
+  }
+  .stat-card:nth-child(1) .unit { color: var(--green); }
+  .stat-card:nth-child(2) .unit { color: var(--sky); }
+  .stat-card:nth-child(3) .unit { color: var(--amber); }
+  .stat-card:nth-child(4) .unit { color: var(--sky); }
+
+  .stat-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-bottom: 0.5rem;
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .stat-card:nth-child(1) .stat-badge { color: var(--green); }
+  .stat-card:nth-child(2) .stat-badge { color: var(--sky); }
+  .stat-card:nth-child(3) .stat-badge { color: var(--amber); }
+  .stat-card:nth-child(4) .stat-badge { color: var(--sky); }
+
+  .stat-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  .stat-card:nth-child(1) .stat-dot { background: var(--green); }
+  .stat-card:nth-child(2) .stat-dot { background: var(--sky); }
+  .stat-card:nth-child(3) .stat-dot { background: var(--amber); }
+  .stat-card:nth-child(4) .stat-dot { background: var(--sky); }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .stat-chart-wrap {
+    position: relative; width: 100%; height: 72px;
+    margin-top: 6px;
+  }
+  .stat-chart-wrap canvas { display: block; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 90px 5%; }
+  .section-eyebrow {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700; line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--muted); max-width: 560px;
+    line-height: 1.7; font-size: 0.95rem;
+    margin-bottom: 3rem;
+  }
+
+  /* ── PRODUCTS ── */
+  #products { background: var(--bg); }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem 1.75rem;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--amber));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s ease;
+  }
+  .product-card:hover {
+    border-color: rgba(0,230,118,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  }
+  .product-card:hover::after { transform: scaleX(1); }
+
+  .product-icon {
+    width: 48px; height: 48px; border-radius: 8px;
+    background: rgba(0,230,118,0.1);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
+  }
+  .product-name {
+    font-family: var(--font-display);
+    font-size: 1.25rem; font-weight: 700;
+    margin-bottom: 0.5rem; letter-spacing: 0.02em;
+  }
+  .product-range {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 0.75rem;
+  }
+  .product-desc {
+    font-size: 0.875rem; color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── WHY BATIAN ── */
+  #why { background: var(--surface); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .why-features { display: flex; flex-direction: column; gap: 1.5rem; }
+  .why-feature {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    transition: border-color .2s;
+  }
+  .why-feature:hover { border-color: rgba(0,230,118,0.35); }
+  .why-feature-icon {
+    font-size: 1.25rem; flex-shrink: 0; margin-top: 2px;
+  }
+  .why-feature h4 {
+    font-family: var(--font-display);
+    font-size: 1rem; font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .why-feature p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  .why-visual {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    text-align: center;
+  }
+  .capacity-ring {
+    position: relative; display: inline-flex;
+    align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .capacity-ring svg { transform: rotate(-90deg); }
+  .ring-label {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 2rem; font-weight: 700;
+    color: var(--green);
+  }
+  .ring-sublabel { font-size: 0.7rem; color: var(--muted); display: block; }
+
+  /* ── SERVICES ── */
+  #services { background: var(--bg); }
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .service-item {
+    background: var(--surface);
+    padding: 2rem 1.75rem;
+    border-right: 1px solid var(--border);
+    transition: background .2s;
+  }
+  .service-item:last-child { border-right: none; }
+  .service-item:hover { background: var(--surface2); }
+  .service-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem; font-weight: 700;
+    color: rgba(0,230,118,0.15);
+    line-height: 1; margin-bottom: 0.75rem;
+  }
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .service-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── CTA BAND ── */
+  .cta-band {
+    background: linear-gradient(135deg, #001A0D 0%, #0B1612 50%, #0D1A07 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 5%;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-band::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(0,230,118,0.08), transparent);
+    pointer-events: none;
+  }
+  .cta-band h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700; margin-bottom: 1rem;
+  }
+  .cta-band p { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; }
+  .cta-band .hero-actions { justify-content: center; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 3rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.25rem; font-weight: 700;
+  }
+  .footer-logo span { color: var(--green); }
+  .footer-copy { font-size: 0.8rem; color: var(--muted); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-size: 0.8rem; color: var(--muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--green); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+    }
+    .hero-right { padding-top: 0; }
+    .stat-cards { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-title { font-size: 2.4rem; }
+  }
+  @media (max-width: 480px) {
+    .stat-cards { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BATIAN<span>.</span>ENERGY</div>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Batian</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#shop" class="nav-cta">Shop Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(0,230,118,0.06)" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)"/>
+      <!-- animated nodes -->
+      <circle cx="900" cy="200" r="3" fill="rgba(0,230,118,0.5)">
+        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2.4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1100" cy="350" r="2" fill="rgba(0,230,118,0.4)">
+        <animate attributeName="opacity" values="0.1;0.7;0.1" dur="3.1s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1250" cy="180" r="4" fill="rgba(245,158,11,0.4)">
+        <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- connector lines -->
+      <line x1="900" y1="200" x2="1100" y2="350" stroke="rgba(0,230,118,0.08)" stroke-width="1"/>
+      <line x1="1100" y1="350" x2="1250" y2="180" stroke="rgba(0,230,118,0.08)" stroke-width="1"/>
+      <line x1="900" y1="200" x2="1250" y2="180" stroke="rgba(0,230,118,0.05)" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- Left: Text content -->
+  <div class="hero-left">
+  <p class="hero-eyebrow">Kenya's Energy Storage Leader</p>
+  <h1 class="hero-title">Reliable Power,<br><em>Stored Intelligently.</em></h1>
+  <p class="hero-sub">Batian Energy delivers scalable battery storage solutions — from portable power banks to industrial-grade lithium systems — built for Kenya's energy future.</p>
+
+  <div class="hero-actions">
+    <a href="#products" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Explore Products
+    </a>
+    <a href="#shop" class="btn-outline">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Visit Shop
+    </a>
+  </div>
+  </div><!-- /.hero-left -->
+
+  <!-- Right: Stat Cards -->
+  <div class="hero-right">
+  <!-- Stat Cards -->
+  <div class="stat-cards">
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-label">Total Installed Capacity</div>
+        <div class="stat-badge"><span class="stat-dot"></span>LIVE</div>
+      </div>
+      <div class="stat-value"><span id="count-twh">0</span><span class="unit">GWh</span></div>
+      <div class="stat-chart-wrap"><canvas id="chart-twh" aria-label="Capacity growth trend" role="img"></canvas></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-label">Grid Availability</div>
+        <div class="stat-badge"><span class="stat-dot"></span>LIVE</div>
+      </div>
+      <div class="stat-value"><span id="count-grid">0</span><span class="unit">%</span></div>
+      <div class="stat-chart-wrap"><canvas id="chart-grid" aria-label="Grid availability trend" role="img"></canvas></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-label">Available Capacity</div>
+        <div class="stat-badge"><span class="stat-dot"></span>LIVE</div>
+      </div>
+      <div class="stat-value"><span id="count-cap">0</span><span class="unit">KWh</span></div>
+      <div class="stat-chart-wrap"><canvas id="chart-cap" aria-label="Available capacity trend" role="img"></canvas></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-label">Systems Deployed</div>
+        <div class="stat-badge"><span class="stat-dot"></span>ACTIVE</div>
+      </div>
+      <div class="stat-value"><span id="count-sys">0</span><span class="unit">+</span></div>
+      <div class="stat-chart-wrap"><canvas id="chart-sys" aria-label="Systems deployed trend" role="img"></canvas></div>
+    </div>
+  </div><!-- /.stat-cards -->
+  </div><!-- /.hero-right -->
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <p class="section-eyebrow">Product Range</p>
+  <h2 class="section-title fade-up">Power Solutions for Every Scale</h2>
+  <p class="section-sub fade-up">From pocket-sized portability to enterprise-grade installations, Batian Energy has a storage solution engineered for your needs.</p>
+
+  <div class="products-grid">
+    <div class="product-card fade-up">
+      <div class="product-icon">🔋</div>
+      <div class="product-range">5,000 mAh – 50,000 mAh</div>
+      <div class="product-name">Power Banks</div>
+      <p class="product-desc">Compact, high-density portable chargers designed for Kenyan conditions — fast-charge compatible, durable casing, and built for on-the-go power reliability.</p>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-icon">⚡</div>
+      <div class="product-range">5 kWh – 100 kWh</div>
+      <div class="product-name">Lithium Batteries</div>
+      <p class="product-desc">Industrial-grade lithium iron phosphate battery systems. Stackable, scalable, and designed for homes, SMEs, and off-grid installations across Kenya.</p>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-icon">🏗️</div>
+      <div class="product-range">80 kWh – 300 kW</div>
+      <div class="product-name">Battery as a Service</div>
+      <p class="product-desc">Enterprise energy storage without capital expenditure. We install, operate, and maintain large-scale battery infrastructure — you pay for the capacity you use.</p>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-icon">🔧</div>
+      <div class="product-range">Full Coverage</div>
+      <div class="product-name">Battery Maintenance</div>
+      <p class="product-desc">Preventive and corrective maintenance programs for battery systems of all sizes. Certified technicians, remote monitoring, and guaranteed uptime SLAs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY BATIAN -->
+<section id="why">
+  <p class="section-eyebrow">Why Batian Energy</p>
+  <div class="why-grid">
+    <div>
+      <h2 class="section-title fade-up">Built for Kenya's<br>Energy Reality</h2>
+      <p class="section-sub fade-up">We understand the grid. We understand the climate. Our systems are engineered specifically for East African conditions — not adapted from elsewhere.</p>
+      <div class="why-features">
+        <div class="why-feature fade-up">
+          <span class="why-feature-icon">🌍</span>
+          <div>
+            <h4>Kenya-First Engineering</h4>
+            <p>Systems tested and optimised for Nairobi's grid fluctuations, highland temperatures, and coastal humidity.</p>
+          </div>
+        </div>
+        <div class="why-feature fade-up">
+          <span class="why-feature-icon">📡</span>
+          <div>
+            <h4>Remote Monitoring</h4>
+            <p>Real-time performance dashboards for every installation. Know your capacity, health, and savings at all times.</p>
+          </div>
+        </div>
+        <div class="why-feature fade-up">
+          <span class="why-feature-icon">🔒</span>
+          <div>
+            <h4>Guaranteed Uptime</h4>
+            <p>Our BaaS contracts include uptime guarantees backed by a rapid-response maintenance network across Kenya.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-visual fade-up">
+      <div class="capacity-ring">
+        <svg width="180" height="180" viewBox="0 0 180 180">
+          <circle cx="90" cy="90" r="75" fill="none" stroke="rgba(0,230,118,0.1)" stroke-width="12"/>
+          <circle cx="90" cy="90" r="75" fill="none" stroke="#00E676" stroke-width="12"
+            stroke-dasharray="471" stroke-dashoffset="188"
+            stroke-linecap="round">
+            <animate attributeName="stroke-dashoffset" from="471" to="188" dur="2s" fill="freeze" begin="0.5s"/>
+          </circle>
+        </svg>
+        <div class="ring-label">60%<span class="ring-sublabel">Grid Avail.</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:0.5rem;">
+        <div style="padding:1rem;background:var(--surface2);">
+          <div style="font-size:0.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">Installed</div>
+          <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--green)">1.5 <span style="font-size:.8rem">GWh</span></div>
+        </div>
+        <div style="padding:1rem;background:var(--surface2);border-left:1px solid var(--border);">
+          <div style="font-size:0.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">Available</div>
+          <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--sky)">500 <span style="font-size:.8rem">KWh</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <p class="section-eyebrow">Services</p>
+  <h2 class="section-title fade-up">End-to-End Energy Support</h2>
+  <p class="section-sub fade-up">From consultation to commissioning to continuous maintenance — Batian Energy is your long-term storage partner.</p>
+
+  <div class="services-list">
+    <div class="service-item fade-up">
+      <div class="service-num">01</div>
+      <div class="service-name">Site Assessment</div>
+      <p class="service-desc">Our engineers evaluate your load profile, grid connection, and space constraints to design the optimal storage solution.</p>
+    </div>
+    <div class="service-item fade-up">
+      <div class="service-num">02</div>
+      <div class="service-name">System Installation</div>
+      <p class="service-desc">Professional installation by certified technicians with full commissioning, safety testing, and grid integration.</p>
+    </div>
+    <div class="service-item fade-up">
+      <div class="service-num">03</div>
+      <div class="service-name">Remote Monitoring</div>
+      <p class="service-desc">24/7 performance tracking, fault detection, and automated alerts via our cloud monitoring platform.</p>
+    </div>
+    <div class="service-item fade-up">
+      <div class="service-num">04</div>
+      <div class="service-name">Scheduled Maintenance</div>
+      <p class="service-desc">Regular cell balancing, thermal inspections, firmware updates, and capacity testing to extend system life.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band" id="contact">
+  <h2 class="fade-up">Ready to Store Smarter?</h2>
+  <p class="fade-up">Talk to a Batian Energy specialist — or browse our full product range in the shop.</p>
+  <div class="hero-actions">
+    <a href="mailto:info@batianenergy.co.ke" class="btn-primary">Get a Quote</a>
+    <a href="#shop" class="btn-outline">Browse Shop →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">BATIAN<span>.</span>ENERGY</div>
+  <p class="footer-copy">© 2025 Batian Energy Ltd. Nairobi, Kenya. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+  // ── Sparkline helper ──
+  function makeSparkline(id, data, color, fillColor, type) {
+    const canvas = document.getElementById(id);
+    if (!canvas) return;
+    const wrap = canvas.parentElement;
+    canvas.width  = wrap.clientWidth  || 220;
+    canvas.height = wrap.clientHeight || 56;
+
+    const isBar = type === 'bar';
+    new Chart(canvas, {
+      type: isBar ? 'bar' : 'line',
+      data: {
+        labels: data.map((_, i) => i),
+        datasets: [{
+          data,
+          borderColor: color,
+          backgroundColor: isBar
+            ? data.map((_, i) => i === data.length - 1 ? color : fillColor)
+            : fillColor,
+          borderWidth: isBar ? 0 : 1.5,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: !isBar,
+          borderRadius: isBar ? 2 : 0,
+        }]
+      },
+      options: {
+        responsive: false,
+        animation: { duration: 1200, easing: 'easeInOutQuart' },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: {
+          x: { display: false },
+          y: { display: false, grace: '10%' }
+        },
+        layout: { padding: { top: 4, bottom: 0, left: 0, right: 0 } }
+      }
+    });
+  }
+
+  // ── Counter animation ──
+  function animateCount(el, target, duration) {
+    const start = performance.now();
+    const isFloat = target % 1 !== 0;
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const val = target * ease;
+      el.textContent = isFloat ? val.toFixed(1) : Math.floor(val);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      // Counters
+      animateCount(document.getElementById('count-twh'), 1.5, 2000);
+      animateCount(document.getElementById('count-grid'), 60, 2200);
+      animateCount(document.getElementById('count-cap'), 500, 2400);
+      animateCount(document.getElementById('count-sys'), 240, 2600);
+
+      // Sparklines
+      // Card 1 — Installed Capacity (green area line, upward trend)
+      makeSparkline('chart-twh',
+        [0.4, 0.55, 0.6, 0.75, 0.85, 0.95, 1.1, 1.2, 1.35, 1.5],
+        '#00E676',
+        'rgba(0,230,118,0.12)',
+        'line'
+      );
+
+      // Card 2 — Grid Availability (sky blue area, oscillating)
+      makeSparkline('chart-grid',
+        [52, 55, 58, 54, 60, 57, 61, 59, 62, 60],
+        '#38BDF8',
+        'rgba(56,189,248,0.12)',
+        'line'
+      );
+
+      // Card 3 — Available Capacity (amber bar chart)
+      makeSparkline('chart-cap',
+        [320, 410, 370, 450, 390, 480, 430, 500, 460, 500],
+        '#F59E0B',
+        'rgba(245,158,11,0.35)',
+        'bar'
+      );
+
+      // Card 4 — Systems Deployed (sky blue stepped line)
+      makeSparkline('chart-sys',
+        [60, 90, 110, 130, 150, 170, 190, 210, 230, 240],
+        '#38BDF8',
+        'rgba(56,189,248,0.12)',
+        'line'
+      );
+    }, 400);
+  });
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
